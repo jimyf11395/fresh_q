@@ -5,6 +5,7 @@ import InspectionList from './components/InspectionList';
 import InspectionForm from './components/InspectionForm';
 import InspectionView from './components/InspectionView';
 import InspectorManager from './components/InspectorManager';
+import LocationManager from './components/LocationManager';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
             <Route path="/create" element={<InspectionForm />} />
             <Route path="/inspection/:id" element={<InspectionView />} />
             <Route path="/inspectors" element={<InspectorManager />} />
+            <Route path="/locations" element={<LocationManager />} />
           </Routes>
         </main>
       </div>

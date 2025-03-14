@@ -1,32 +1,34 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const InspectionView = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [inspection, setInspection] = useState(null);
   const [fieldValues, setFieldValues] = useState({});
-  const [status, setStatus] = useState('Pending');
-  const [comments, setComments] = useState('');
+  const [status, setStatus] = useState("Pending");
+  const [comments, setComments] = useState("");
   const [isSaving, setIsSaving] = useState(false);
 
   useEffect(() => {
     const fetchInspection = async () => {
       try {
-        const response = await axios.get(`http://localhost:5001/api/forms/${id}`);
+        const response = await axios.get(
+          `http://localhost:5001/api/forms/${id}`
+        );
         setInspection(response.data);
         setStatus(response.data.status);
-        setComments(response.data.comments || '');
-        
+        setComments(response.data.comments || "");
+
         // Initialize field values
         const values = {};
-        response.data.fields.forEach(field => {
-          values[field.label] = field.value || '';
+        response.data.fields.forEach((field) => {
+          values[field.label] = field.value || "";
         });
         setFieldValues(values);
       } catch (error) {
-        console.error('Error fetching inspection:', error);
+        console.error("Error fetching inspection:", error);
       }
     };
 
@@ -36,31 +38,22 @@ const InspectionView = () => {
   const handleFieldChange = (fieldName, value) => {
     setFieldValues({
       ...fieldValues,
-      [fieldName]: value
+      [fieldName]: value,
     });
   };
 
   const handleSave = async () => {
     setIsSaving(true);
     try {
-      // Update field values
-      const updatedFields = inspection.fields.map(field => ({
-        ...field,
-        value: fieldValues[field.label]
-      }));
-      await axios.patch(`http://localhost:5001/api/forms/${id}/fields`, {
-        fields: updatedFields
-      });
-
       // Update status and comments
       await axios.patch(`http://localhost:5001/api/forms/${id}/status`, {
         status,
-        comments
+        comments,
       });
 
-      navigate('/');
+      navigate("/");
     } catch (error) {
-      console.error('Error saving inspection:', error);
+      console.error("Error saving inspection:", error);
     } finally {
       setIsSaving(false);
     }
@@ -73,24 +66,33 @@ const InspectionView = () => {
       <div className="inspection-header">
         <h2>Quality Inspection - Lot #{inspection.lotNumber}</h2>
         <div className="inspection-meta">
-          <p><strong>Type:</strong> {inspection.inspectionType}</p>
-          <p><strong>Inspector:</strong> {inspection.inspector}</p>
-          <p><strong>Date:</strong> {new Date(inspection.createdAt).toLocaleDateString()}</p>
+          <p>
+            <strong>Type:</strong> {inspection.inspectionType}
+          </p>
+          <p>
+            <strong>Inspector:</strong> {inspection.inspector}
+          </p>
+          <p>
+            <strong>Date:</strong>{" "}
+            {new Date(inspection.createdAt).toLocaleDateString()}
+          </p>
         </div>
       </div>
 
       <div className="inspection-form">
         <div className="inspection-fields">
-          {inspection.fields.map((field, index) => (
+          {/*    {inspection.fields.map((field, index) => (
             <div key={index} className="inspection-field">
               <label>
                 {field.label}
                 {field.required && <span className="required">*</span>}
               </label>
-              {field.type === 'boolean' ? (
+              {field.type === "boolean" ? (
                 <select
-                  value={fieldValues[field.label] || ''}
-                  onChange={(e) => handleFieldChange(field.label, e.target.value)}
+                  value={fieldValues[field.label] || ""}
+                  onChange={(e) =>
+                    handleFieldChange(field.label, e.target.value)
+                  }
                   className="field-input"
                   required={field.required}
                 >
@@ -98,29 +100,35 @@ const InspectionView = () => {
                   <option value="pass">Pass</option>
                   <option value="fail">Fail</option>
                 </select>
-              ) : field.type === 'select' ? (
+              ) : field.type === "select" ? (
                 <select
-                  value={fieldValues[field.label] || ''}
-                  onChange={(e) => handleFieldChange(field.label, e.target.value)}
+                  value={fieldValues[field.label] || ""}
+                  onChange={(e) =>
+                    handleFieldChange(field.label, e.target.value)
+                  }
                   className="field-input"
                   required={field.required}
                 >
                   <option value="">Select...</option>
                   {field.options.map((option, i) => (
-                    <option key={i} value={option}>{option}</option>
+                    <option key={i} value={option}>
+                      {option}
+                    </option>
                   ))}
                 </select>
               ) : (
                 <input
                   type={field.type}
-                  value={fieldValues[field.label] || ''}
-                  onChange={(e) => handleFieldChange(field.label, e.target.value)}
+                  value={fieldValues[field.label] || ""}
+                  onChange={(e) =>
+                    handleFieldChange(field.label, e.target.value)
+                  }
                   className="field-input"
                   required={field.required}
                 />
               )}
             </div>
-          ))}
+          ))} */}
         </div>
 
         <div className="inspection-status">
@@ -146,12 +154,12 @@ const InspectionView = () => {
         </div>
 
         <div className="inspection-actions">
-          <button 
-            onClick={handleSave} 
-            className="btn save-btn" 
+          <button
+            onClick={handleSave}
+            className="btn save-btn"
             disabled={isSaving}
           >
-            {isSaving ? 'Saving...' : 'Save Inspection'}
+            {isSaving ? "Saving..." : "Save Inspection"}
           </button>
         </div>
       </div>
