@@ -24,6 +24,7 @@ A web platform built with MongoDB Atlas, Express.js, React.js, and Node.js for h
 ## Setup Instructions
 
 1. Install dependencies:
+
    ```bash
    # Install backend dependencies
    cd server
@@ -35,12 +36,14 @@ A web platform built with MongoDB Atlas, Express.js, React.js, and Node.js for h
    ```
 
 2. Create a `.env` file in the server directory with your MongoDB Atlas connection string:
+
    ```
    MONGODB_URI=your_mongodb_atlas_connection_string
    PORT=5000
    ```
 
 3. Start the development servers:
+
    ```bash
    # Start backend server
    cd server
@@ -57,6 +60,3 @@ A web platform built with MongoDB Atlas, Express.js, React.js, and Node.js for h
 - Backend: Node.js with Express.js
 - Database: MongoDB Atlas
 - Additional tools: Mongoose, Axios, React Router
-# fresh_q
-# fresh_q
-# fresh_q

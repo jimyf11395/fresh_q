@@ -16,7 +16,8 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, sans-serif;
   line-height: 1.6;
   color: var(--text-color);
   background-color: var(--secondary-color);
@@ -45,7 +46,14 @@ body {
   text-decoration: none;
 }
 
+.cl-rootBox.cl-userButton-root {
+  margin: 0 2rem;
+  vertical-align: middle;
+}
+
 .nav-links {
+  vertical-align: middle;
+  margin: 0 2rem;
   float: right;
 }
 
@@ -85,7 +93,9 @@ body {
 }
 
 /* Inspections */
-.inspection-form, .inspection-view, .inspection-list {
+.inspection-form,
+.inspection-view,
+.inspection-list {
   background-color: white;
   border-radius: 8px;
   padding: 2rem;
@@ -96,7 +106,8 @@ body {
   margin-bottom: 2rem;
 }
 
-.form-input, .form-select {
+.form-input,
+.form-select {
   width: 100%;
   padding: 0.75rem;
   margin: 0.5rem 0;
@@ -105,7 +116,8 @@ body {
   font-size: 1rem;
 }
 
-.form-input:focus, .form-select:focus {
+.form-input:focus,
+.form-select:focus {
   outline: none;
   border-color: var(--primary-color);
 }
@@ -134,6 +146,42 @@ body {
 
 .create-btn {
   margin-bottom: 2rem;
+}
+
+/* KPI Cards */
+.kpi {
+  background-color: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+  flex: 1;
+  text-align: center;
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+}
+.kpis {
+  display: flex;
+  gap: 2rem;
+}
+
+/* Chart Cards */
+
+.charts {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.chart-card {
+  background-color: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+  flex: 1;
+  min-width: 100px;
 }
 
 /* Inspection Cards */
@@ -299,15 +347,20 @@ body {
   border-radius: 4px;
 }
 
-/* Inspector Manager */
-.inspector-manager {
+/* kpi Manager */
+.kpi-manager {
   background-color: white;
   border-radius: 8px;
   padding: 2rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.inspector-form {
+.kpis-list {
+  margin-top: 1rem;
+}
+
+.kpi-form {
+  margin-top: 3rem;
   margin-bottom: 3rem;
 }
 
@@ -319,13 +372,28 @@ body {
   overflow-x: auto;
 }
 
+.table-header {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+}
+
+.search-input {
+  width: 50%;
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 1rem;
 }
 
-th, td {
+th,
+td {
   padding: 1rem;
   text-align: left;
   border-bottom: 1px solid var(--border-color);
@@ -334,6 +402,10 @@ th, td {
 th {
   background-color: var(--secondary-color);
   font-weight: 500;
+}
+
+tr {
+  height: 40px;
 }
 
 tr.inactive {
@@ -417,17 +489,35 @@ tr.inactive {
   text-align: right;
 }
 
+.login-btn {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  margin: 0.5rem 2rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.login-btn:hover {
+  background-color: #357abd;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .forms-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .nav-links {
     float: none;
     margin-top: 1rem;
   }
-  
+
   .nav-link {
     display: block;
     margin: 0.5rem 0;
