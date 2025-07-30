@@ -53,7 +53,7 @@ body {
 
 .nav-links {
   vertical-align: middle;
-  margin: 0 2rem;
+  margin-top: 5px;
   float: right;
 }
 
@@ -522,4 +522,95 @@ tr.inactive {
     display: block;
     margin: 0.5rem 0;
   }
+}
+
+.login-form {
+  width: 100%;
+  max-width: 400px;
+  margin: 20% auto;
+  background-color: white;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  align-items: center;
+}
+
+.login-form-btn {
+  margin-top: 10px;
+  margin-bottom: 50px;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.login-form-btn:hover {
+  background-color: #357abd;
+}
+
+.form-title {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--text-color);
+  text-align: center;
+}
+
+.register-form-btn {
+  margin-top: 10px;
+  margin-bottom: 50px;
+  background-color: #cbad04;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.register-form-btn:hover {
+  background-color: #847108;
+}
+
+.landing-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1.5rem;
+  padding: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.landing-tile {
+  background-color: var(--primary-color);
+  vertical-align: middle;
+  color: white;
+  font-size: 1.25rem;
+  font-weight: bold;
+  padding: 2rem;
+  text-align: center;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.landing-tile:hover {
+  background-color: #357abd;
+  transform: scale(1.03);
 }
