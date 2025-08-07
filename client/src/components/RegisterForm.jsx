@@ -10,10 +10,13 @@ const RegisterForm = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:5001/api/auth/register", {
-        email,
-        password,
-      });
+      await axios.post(
+        `${process.env.REACT_APP_API_BASE_URL}/api/auth/register`,
+        {
+          email,
+          password,
+        }
+      );
       alert("Registration successful!");
       navigate("/dashboard");
     } catch (err) {

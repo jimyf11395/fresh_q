@@ -15,7 +15,12 @@ const Dashboard = () => {
 
   const fetchKpis = async () => {
     try {
-      const response = await axios.get("http://localhost:5001/api/kpis");
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/api/kpis`,
+        {
+          withCredentials: true,
+        }
+      );
       setKpis(response.data);
     } catch (error) {
       console.error("Error fetching kpis:", error);

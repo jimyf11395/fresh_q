@@ -12,6 +12,7 @@ import Register from "./pages/Register";
 import KpiManager from "./pages/KpiManager";
 import Landing from "./pages/Landing";
 import PrivateRoute from "./components/PrivateRoute";
+import Profile from "./pages/Profile";
 
 function AppContent() {
   const location = useLocation();
@@ -56,6 +57,7 @@ function AppContent() {
               </PrivateRoute>
             }
           />
+          <Route path="/profile" element={<Profile />} />
         </Routes>
       </main>
     </div>

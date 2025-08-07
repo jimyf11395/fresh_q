@@ -1,9 +1,9 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 
 export const AuthContext = createContext();
-
+export const useAuth = () => useContext(AuthContext);
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
@@ -13,7 +13,12 @@ export const AuthProvider = ({ children }) => {
     try {
       const decoded = jwtDecode(token);
       if (decoded.exp * 1000 < Date.now()) return false;
-      setUser({ email: decoded.email }); // or `sub` or your custom payload
+      setUser({
+        _id: decoded._id,
+        email: decoded.email,
+        last_name: decoded.last_name,
+        first_name: decoded.first_name || "Guest",
+      });
       return true;
     } catch (err) {
       return false;
@@ -22,11 +27,25 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const token = getToken();
-    if (token && isValidToken(token)) {
-      // already handled by isValidToken
-    } else {
-      logout(); // token expired or invalid
-    }
+    if (!token) return logout();
+
+    const fetchUser = async () => {
+      try {
+        const res = await fetch(
+          `${process.env.REACT_APP_API_BASE_URL}/api/auth/me`,
+          {
+            credentials: "include", // sends cookie
+          }
+        );
+        if (!res.ok) throw new Error("Not authenticated");
+        const data = await res.json();
+        setUser(data);
+      } catch (err) {
+        logout();
+      }
+    };
+
+    fetchUser();
   }, []);
 
   const login = (token) => {

@@ -23,7 +23,9 @@ const KpiManager = () => {
 
   const fetchKpis = async () => {
     try {
-      const response = await axios.get("http://localhost:5001/api/kpis");
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/api/kpis`
+      );
       setKpis(response.data);
     } catch (error) {
       console.error("Error fetching kpis:", error);
@@ -43,7 +45,10 @@ const KpiManager = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:5001/api/kpis", newKpi);
+      await axios.post(
+        `${process.env.REACT_APP_API_BASE_URL}/api/kpis`,
+        newKpi
+      );
       setNewKpi({
         name: "",
         value: "",
@@ -67,7 +72,7 @@ const KpiManager = () => {
     e.preventDefault();
     try {
       await axios.patch(
-        `http://localhost:5001/api/kpis/${editingKpi._id}`,
+        `${process.env.REACT_APP_API_BASE_URL}/api/kpis/${editingKpi._id}`,
         editingKpi
       );
       setEditingKpi(null);
@@ -81,9 +86,12 @@ const KpiManager = () => {
 
   const handleToggleActive = async (kpi) => {
     try {
-      await axios.patch(`http://localhost:5001/api/kpis/${kpi._id}`, {
-        active: !kpi.active,
-      });
+      await axios.patch(
+        `${process.env.REACT_APP_API_BASE_URL}/api/kpis/${kpi._id}`,
+        {
+          active: !kpi.active,
+        }
+      );
       fetchKpis();
       setError("");
     } catch (error) {

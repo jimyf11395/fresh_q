@@ -1,22 +1,23 @@
-import { useNavigate } from "react-router-dom";
+import landingImg from "../components/plantly.png";
+import { useAuth } from "../context/AuthContext";
+import "../index.css";
 
 const Landing = () => {
-  const navigate = useNavigate();
-
-  const tiles = [
-    { label: "Dashboard", path: "/dashboard" },
-    { label: "KPI Manager", path: "/kpi" },
-    { label: "Settings", path: "/settings" },
-    { label: "Profile", path: "/profile" },
-  ];
+  const { user } = useAuth();
 
   return (
     <div className="landing-container">
-      {tiles.map(({ label, path }) => (
-        <div key={path} className="landing-tile" onClick={() => navigate(path)}>
-          {label}
-        </div>
-      ))}
+      <div className="landing-left">
+        <img src={landingImg} alt="Landing Visual" className="landing-image" />
+      </div>
+      <div className="landing-right">
+        <h1 className="landing-heading">Welcome back, {user?.first_name}!</h1>
+        <input
+          type="text"
+          placeholder="Search..."
+          className="landing-searchbar"
+        />
+      </div>
     </div>
   );
 };

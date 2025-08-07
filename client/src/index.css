@@ -589,28 +589,116 @@ tr.inactive {
 }
 
 .landing-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 1.5rem;
-  padding: 2rem;
-  max-width: 800px;
-  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  width: 100%;
+  font-family: sans-serif;
 }
 
-.landing-tile {
-  background-color: var(--primary-color);
-  vertical-align: middle;
-  color: white;
-  font-size: 1.25rem;
-  font-weight: bold;
+.landing-left,
+.landing-right {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.landing-left {
+  background-color: #f4f4f4;
+}
+
+.landing-right {
+  background-color: #fff;
+  flex-direction: column;
   padding: 2rem;
   text-align: center;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: transform 0.2s, background-color 0.2s;
 }
 
-.landing-tile:hover {
-  background-color: #357abd;
-  transform: scale(1.03);
+.landing-image {
+  max-width: 90%;
+  height: auto;
+  max-height: 80vh;
+  object-fit: contain;
+}
+
+.landing-heading {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.landing-searchbar {
+  width: 80%;
+  max-width: 400px;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+/* Responsive layout for small screens */
+@media (max-width: 768px) {
+  .landing-container {
+    flex-direction: column;
+  }
+
+  .landing-image {
+    max-height: 40vh;
+  }
+
+  .landing-searchbar {
+    width: 90%;
+  }
+}
+
+.profile-container {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 2rem;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  background: #fdfdfd;
+  text-align: center;
+}
+
+.profile-form input {
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.profile-form button {
+  padding: 10px 20px;
+  margin-top: 10px;
+  background-color: #2ecc71;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.image-section {
+  margin: 20px 0;
+}
+
+.profile-pic {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.profile-pic-placeholder {
+  width: 100px;
+  height: 100px;
+  border: 2px dashed #bbb;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #888;
 }
