@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import Modal from "react-modal";
+import AddKpiModal from "../components/AddKpiModal";
 
 const KpiManager = () => {
   const [kpis, setKpis] = useState([]);
   const [newKpi, setNewKpi] = useState({
-    kpiId: "",
     name: "",
     value: "",
     active: true,
@@ -14,7 +13,14 @@ const KpiManager = () => {
   const [error, setError] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const openModal = () => setIsModalOpen(true);
+  const openModal = () => {
+    setNewKpi({
+      name: "",
+      value: "",
+      active: true,
+    });
+    setIsModalOpen(true);
+  };
   const closeModal = () => setIsModalOpen(false);
 
   useEffect(() => {
@@ -26,7 +32,8 @@ const KpiManager = () => {
       const response = await axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/api/kpis`
       );
-      setKpis(response.data);
+      const sortedKpis = response.data.sort((a, b) => a.kpiId - b.kpiId);
+      setKpis(sortedKpis);
     } catch (error) {
       console.error("Error fetching kpis:", error);
       setError("Failed to load kpis");
@@ -34,11 +41,13 @@ const KpiManager = () => {
   };
 
   const handleInputChange = (e, isEditing = false) => {
-    const { name, value } = e.target;
+    const { name, value, type, checked } = e.target;
+    const fieldValue = type === "checkbox" ? checked : value;
+
     if (isEditing) {
-      setEditingKpi((prev) => ({ ...prev, [name]: value }));
+      setEditingKpi((prev) => ({ ...prev, [name]: fieldValue }));
     } else {
-      setNewKpi((prev) => ({ ...prev, [name]: value }));
+      setNewKpi((prev) => ({ ...prev, [name]: fieldValue }));
     }
   };
 
@@ -52,10 +61,11 @@ const KpiManager = () => {
       setNewKpi({
         name: "",
         value: "",
+        active: true,
       });
-      fetchKpis();
       setError("");
       closeModal();
+      fetchKpis();
     } catch (error) {
       console.error("Error creating kpi:", error);
       const errorMessage =
@@ -163,15 +173,17 @@ const KpiManager = () => {
           <div className="modal-content">
             <h3>Edit KPI</h3>
             <form onSubmit={handleUpdate}>
+              <div className="form-input-title">KPI ID</div>
               <div className="form-group">
                 <input
-                  type="text"
+                  type="number"
                   name="kpiId"
                   value={editingKpi.kpiId}
                   className="form-input"
                   disabled
                 />
               </div>
+              <div className="form-input-title">Name</div>
               <div className="form-group">
                 <input
                   type="text"
@@ -183,9 +195,10 @@ const KpiManager = () => {
                   required
                 />
               </div>
+              <div className="form-input-title">Value</div>
               <div className="form-group">
                 <input
-                  type="text"
+                  type="number"
                   name="value"
                   value={editingKpi.value}
                   onChange={(e) => handleInputChange(e, true)}
@@ -211,6 +224,17 @@ const KpiManager = () => {
         </div>
       )}
       <br />
+      <button onClick={openModal} className="btn">
+        Add New KPI
+      </button>
+      {isModalOpen && (
+        <AddKpiModal
+          newKpi={newKpi}
+          handleInputChange={handleInputChange}
+          handleSubmit={handleSubmit}
+          closeModal={closeModal}
+        />
+      )}
     </div>
   );
 };

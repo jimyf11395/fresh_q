@@ -1,17 +1,9 @@
 // src/components/KpiTable.jsx
 import SearchInput from "./SearchInput";
 
-const KpiTable = ({
-  kpis,
-  kpiSearchTerm,
-  setKpiSearchTerm,
-  statusSearchTerm,
-  setStatusSearchTerm,
-}) => {
-  const filteredKpis = kpis.filter(
-    (kpi) =>
-      kpi.name.toLowerCase().includes(kpiSearchTerm.toLowerCase()) &&
-      kpi.value.toLowerCase().includes(statusSearchTerm.toLowerCase())
+const KpiTable = ({ kpis, kpiSearchTerm, setKpiSearchTerm }) => {
+  const filteredKpis = kpis.filter((kpi) =>
+    kpi.name.toLowerCase().includes(kpiSearchTerm.toLowerCase())
   );
 
   return (
@@ -24,7 +16,7 @@ const KpiTable = ({
             <tr>
               <th>
                 <div className="table-header">
-                  KPI Name
+                  KPI
                   <SearchInput
                     placeholder="Search by KPI Name"
                     value={kpiSearchTerm}
@@ -32,18 +24,10 @@ const KpiTable = ({
                   />
                 </div>
               </th>
-              <th>KPI Type</th>
+              <th>Value</th>
               <th>
-                <div className="table-header">
-                  Status
-                  <SearchInput
-                    placeholder="Search by Status"
-                    value={statusSearchTerm}
-                    onChange={(e) => setStatusSearchTerm(e.target.value)}
-                  />
-                </div>
+                <div className="table-header">Is Active</div>
               </th>
-              <th>Owner</th>
             </tr>
           </thead>
           <tbody>
@@ -51,8 +35,7 @@ const KpiTable = ({
               <tr key={kpi._id}>
                 <td>{kpi.name}</td>
                 <td>{kpi.value}</td>
-                <td>{kpi.status}</td>
-                <td>{kpi.kpiName}</td>
+                <td>{kpi.active ? "Yes" : "No"}</td>
               </tr>
             ))}
           </tbody>

@@ -34,10 +34,15 @@ const Dashboard = () => {
 
       {/* KPI Cards */}
       <div className="kpis">
-        {kpis.map((kpi) => (
-          <KpiCard key={kpi._id} value={kpi.value} label={kpi.name} />
-        ))}
-        <KpiCard value={kpis.length} label="Total KPIs" />
+        {kpis
+          .filter((kpi) => kpi.active) // 👈 Only active KPIs
+          .map((kpi) => (
+            <KpiCard key={kpi._id} value={kpi.value} label={kpi.name} />
+          ))}
+        {/* <KpiCard
+          value={kpis.filter((kpi) => kpi.active).length} // 👈 Count only active
+          label="Total Active KPIs"
+        /> */}
       </div>
 
       {/* KPI Table */}
