@@ -12,10 +12,7 @@ const RegisterForm = () => {
     try {
       await axios.post(
         `${process.env.REACT_APP_API_BASE_URL}/api/auth/register`,
-        {
-          email,
-          password,
-        }
+        { email, password }
       );
       alert("Registration successful!");
       navigate("/dashboard");
@@ -25,31 +22,50 @@ const RegisterForm = () => {
   };
 
   return (
-    <div className="login-form">
-      <form onSubmit={handleRegister}>
+    <div className="register-page">
+      {/* Hero / Logo */}
+      <div className="register-hero">
+        <img
+          src="/plantly.png"
+          alt="Plantly BI Logo"
+          className="register-logo"
+        />
+        <h1 className="register-brand">Plantly BI</h1>
+      </div>
+
+      {/* Card */}
+      <div className="register-card">
         <h2 className="form-title">Register</h2>
-        <input
-          className="form-input"
-          type="email"
-          placeholder="Email"
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <input
-          className="form-input"
-          type="password"
-          placeholder="Password"
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <button className="register-form-btn" type="submit">
-          Register
-        </button>
-      </form>
-      <p>
-        Already have an account? <a href="/login">Login here</a>
-      </p>
+        <p className="form-subtitle">Create your account.</p>
+        <form onSubmit={handleRegister}>
+          <label>Email</label>
+          <input
+            className="form-input"
+            type="email"
+            placeholder="Email"
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <label>Password</label>
+          <input
+            className="form-input"
+            type="password"
+            placeholder="Password"
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          <button className="register-btn" type="submit">
+            Register
+          </button>
+        </form>
+
+        <div className="register-links">
+          <span>Already have an account?</span>
+          <a href="/login">Login</a>
+        </div>
+      </div>
     </div>
   );
 };
+
 export default RegisterForm;

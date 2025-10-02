@@ -30,11 +30,14 @@ export const AuthProvider = ({ children }) => {
     if (!token) return logout();
 
     const fetchUser = async () => {
+      const token = getToken();
+      if (!token) return logout();
+
       try {
         const res = await fetch(
           `${process.env.REACT_APP_API_BASE_URL}/api/auth/me`,
           {
-            credentials: "include", // sends cookie
+            headers: { Authorization: `Bearer ${token}` }, // send token in header
           }
         );
         if (!res.ok) throw new Error("Not authenticated");
@@ -51,8 +54,8 @@ export const AuthProvider = ({ children }) => {
   const login = (token) => {
     Cookies.set("token", token, {
       expires: 1,
-      secure: true,
-      sameSite: "Strict",
+      secure: window.location.protocol === "https:", // only secure on https
+      sameSite: "Lax",
     });
     isValidToken(token); // sets user
   };
